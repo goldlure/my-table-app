@@ -1,0 +1,55 @@
+<mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- BuildID Column -->
+      <ng-container matColumnDef="buildId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Build ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.buildId}} </td>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="progress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Successfull rate </th>
+        <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
+      </ng-container>
+  
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let row"> {{row.date }}</td>
+      </ng-container>
+  
+      <!-- Passed Tests Column -->
+      <ng-container matColumnDef="passedTests">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Passed Tests </th>
+        <td mat-cell *matCellDef="let row"> {{row.passedTests}} </td>
+      </ng-container>
+
+      <!-- Failed Tests Column -->
+      <ng-container matColumnDef="failedTests">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Failed Tests </th>
+        <td mat-cell *matCellDef="let row"> {{row.failedTests}} </td>
+      </ng-container>
+
+      <!-- Logs Column -->
+      <ng-container matColumnDef="logs">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Logs </th>
+        <td mat-cell *matCellDef="let row"> <a [href]="row.logs" target="_blank">{{row.logs}}</a></td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
